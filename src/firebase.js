@@ -30,6 +30,7 @@ const firestore = firebase.firestore();
 // Exported database with created collections from firestore
 export const database = {
     users: firestore.collection('users'),
+    posts: firestore.collection('posts'),
     getTimeStamp: firebase.firestore.FieldValue.serverTimestamp
 }
 

@@ -22,7 +22,6 @@ import { AuthContext } from '../../Context/AuthContext';
 import { useContext, useState } from 'react';
 
 export default function Login() {
-  const store = useContext(AuthContext);
   const useStyles = makeStyles({
     text1: {
         color: 'grey',
@@ -51,7 +50,7 @@ export default function Login() {
     try {
         setError('');
         setLoading(true);
-        const res = await login(email, password);
+        await login(email, password);
         setLoading(false);
         navigate('/');
     } catch (error) {

@@ -14,11 +14,13 @@ export function AuthProvider({children}) {
        const response = await auth.createUserWithEmailAndPassword(email, password);
        setAuthenticated(true);
        sessionStorage.setItem('isAuthenticated', true);
+       response?.user?.uid && sessionStorage.setItem('userId', response.user.uid);
        return response;
     }
 
     async function login (email, password) {
         const response = await auth.signInWithEmailAndPassword(email, password);
+        response?.user?.uid && sessionStorage.setItem('userId', response.user.uid);
         setAuthenticated(true);
         sessionStorage.setItem('isAuthenticated', true);
         return response;
@@ -28,6 +30,7 @@ export function AuthProvider({children}) {
         const response = await auth.signOut();
         setAuthenticated(false);
         sessionStorage.setItem('isAuthenticated', false);
+        sessionStorage.setItem('userId', '');
         return response;
     }
 
