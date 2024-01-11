@@ -75,7 +75,7 @@ function UploadFile() {
   }
 
   return (
-    <div>
+    <div style={{ marginTop: '7rem', marginBottom:'1rem' }}>
       {
         error !== '' ? <Alert severity="error">{error}</Alert> :
         <>

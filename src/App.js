@@ -5,6 +5,7 @@ import Login from './Components/Login/Login';
 import Feed from './Components/Feed/Feed';
 import { AuthProvider } from './Context/AuthContext';
 import PrivateRoute from './PrivateRoute';
+import Profile from './Components/Feed/Profile';
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
             </Route>
             <Route exact path="/login" element={
               <Login/>
+            }>
+            </Route>
+            <Route exact path="/profile/:id" element={
+              <Profile/>
             }>
             </Route>
             <Route exact path="/" element={
