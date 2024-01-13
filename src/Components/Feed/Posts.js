@@ -40,9 +40,33 @@ function Posts({user}) {
         })
         setPosts(pArr);
     })
-    return unsub;
+    return () => unsub();
   }, []);
+  
+  const callback = (entries) => {
+    entries.forEach((entry) => {
+        const ele = entry.target.childNodes[0];
+        ele.play().then(() => {
+            if (!ele.paused && !entry.isIntersecting) {
+                ele.pause()
+            }
+        })
+    })
+  }
 
+  const observer = new IntersectionObserver(callback, {
+    threshold: 0.6
+  });
+
+  useEffect(() => {
+    const elements = document.querySelectorAll(".videos");
+    elements.forEach((element) => {
+        observer.observe(element);
+    })
+    return () => {
+        observer.disconnect();
+    }
+  }, [posts])
 
   return (
     <div>
@@ -55,8 +79,8 @@ function Posts({user}) {
                         <div className='videos'>
                             <Video src={post.postUrl}/>
                             <div className='fa' style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                                <Avatar alt="Profile" src={user.profileUrl} style={{ marginLeft: '25px' }} />
-                                <h4>{user.fullname}</h4>
+                                <Avatar alt="Profile" src={post.userProfile} style={{ marginLeft: '25px' }} />
+                                <h4>{post.userName}</h4>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <Like userData={user} postData={post}/>
